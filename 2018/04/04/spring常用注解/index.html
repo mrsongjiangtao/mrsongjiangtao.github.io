@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Spring," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一、引入注解的目的： 当bean过多时，会引起xml文件的过于臃肿，庞大，难以维护 加强java bean的内聚度  二、常用注解概述： @Service用于标注业务层组件、  @Controller用于标注控制层组件（如struts中的action） @Repository用于标注数据访问组件，即DAO组件。 @Component泛指组件，当组件不好归类的时候，我们可以使用这个注解进行标注。 @">
+<meta name="keywords" content="Spring">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring常用注解🍂">
+<meta property="og:url" content="http://yoursite.com/2018/04/04/spring常用注解/index.html">
+<meta property="og:site_name" content="EasyChill&#39;Blogs">
+<meta property="og:description" content="一、引入注解的目的： 当bean过多时，会引起xml文件的过于臃肿，庞大，难以维护 加强java bean的内聚度  二、常用注解概述： @Service用于标注业务层组件、  @Controller用于标注控制层组件（如struts中的action） @Repository用于标注数据访问组件，即DAO组件。 @Component泛指组件，当组件不好归类的时候，我们可以使用这个注解进行标注。 @">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-09-21T14:57:11.879Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring常用注解🍂">
+<meta name="twitter:description" content="一、引入注解的目的： 当bean过多时，会引起xml文件的过于臃肿，庞大，难以维护 加强java bean的内聚度  二、常用注解概述： @Service用于标注业务层组件、  @Controller用于标注控制层组件（如struts中的action） @Repository用于标注数据访问组件，即DAO组件。 @Component泛指组件，当组件不好归类的时候，我们可以使用这个注解进行标注。 @">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/04/spring常用注解/"/>
+
+
+
+
+
+  <title>Spring常用注解🍂 | EasyChill'Blogs</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">EasyChill'Blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">专注而非广博</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-联系我">
+          <a href="/message/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-envelope"></i> <br />
+            
+            联系我
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/04/spring常用注解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="EasyChill">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://www.qqzhi.com/uploadpic/2014-05-04/034226102.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="EasyChill'Blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spring常用注解🍂</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-04T09:20:34+08:00">
+                2018-04-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="一、引入注解的目的："><a href="#一、引入注解的目的：" class="headerlink" title="一、引入注解的目的："></a>一、引入注解的目的：</h1><ul>
+<li>当bean过多时，会引起xml文件的过于臃肿，庞大，难以维护</li>
+<li>加强java bean的内聚度</li>
+</ul>
+<h1 id="二、常用注解概述："><a href="#二、常用注解概述：" class="headerlink" title="二、常用注解概述："></a>二、常用注解概述：</h1><ul>
+<li>@Service用于标注业务层组件、 </li>
+<li>@Controller用于标注控制层组件（如struts中的action）</li>
+<li>@Repository用于标注数据访问组件，即DAO组件。</li>
+<li>@Component泛指组件，当组件不好归类的时候，我们可以使用这个注解进行标注。</li>
+<li><p>@Autowired 默认按类型装配，如果我们想使用按名称装配，可以结合@Qualifier注解一起使用。如下：<br>@Autowired @Qualifier(“personDaoBean”) 存在多个实例配合使用</p>
+</li>
+<li><p>@Resource默认按名称装配，当找不到与名称匹配的bean才会按类型装配。</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>@PreDestroy 摧毁注解 默认 单例  启动就加载</li>
+<li>@Async异步方法调用</li>
+<li>@Configuration把一个类作为一个IoC容器，它的某个方法头上如果注册了 @Bean，就会作为这个Spring容器中的Bean。</li>
+<li>@Scope用于指定scope作用域的（用在类上）</li>
+<li>@PostConstruct用于指定初始化方法（用在方法上）</li>
+<li>@PreDestory用于指定销毁方法（用在方法上）</li>
+<li>@DependsOn：定义Bean初始化及销毁时的顺序</li>
+<li>@Primary：自动装配时当出现多个Bean候选者时，被注解为@Primary的Bean将作为首选者，否则将抛出异常</li>
+<li>@Lazy(true) 表示延迟初始化</li>
+</ul>
+<p><strong>前面的更为常见！</strong></p>
+<h1 id="三、详述"><a href="#三、详述" class="headerlink" title="三、详述"></a>三、详述</h1><p><strong>在使用注解前：要将使用注解的类都加载进xml中</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">   xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">    xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">   xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans</span><br><span class="line">       http://www.springframework.org/schema/beans/spring-beans.xsd</span><br><span class="line">       http://www.springframework.org/schema/context</span><br><span class="line">       http://www.springframework.org/schema/context/spring-context-4.0.xsd&quot; &gt; 	</span><br><span class="line">&lt;!-- 这里使用base-package来引入这个包下的所有类--&gt;</span><br><span class="line">&lt;context:component-scan base-package=&quot;com.annotation&quot; /&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure></p>
+<h4 id="1、-Autowired"><a href="#1、-Autowired" class="headerlink" title="1、@Autowired"></a><strong>1、@Autowired</strong></h4><p>@Autowired顾名思义，就是自动装配，其作用是为了消除代码Java代码里面的setter与bean属性中的property。</p>
+<p>@Autowired默认按类型匹配的方式，在容器查找匹配的Bean，当有且仅有一个匹配的Bean时，Spring将其注入@Autowired标注的变量中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">package com.annotation.service.impl;</span><br><span class="line"></span><br><span class="line">import org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line">import org.springframework.context.annotation.Scope;</span><br><span class="line">import org.springframework.stereotype.Service;</span><br><span class="line"></span><br><span class="line">import com.annotation.dao.AnnotationDao;</span><br><span class="line">import com.annotation.service.AnnotationService;</span><br><span class="line">@Service</span><br><span class="line">@Scope(&quot;prototype&quot;)//这里的Scope和xml文件的用法一致</span><br><span class="line">public class AnnotationServiceImpl2 implements AnnotationService &#123;</span><br><span class="line">	@Autowired</span><br><span class="line">	private AnnotationDao ad;</span><br><span class="line">	@Override</span><br><span class="line">	public void p() &#123;</span><br><span class="line">		System.out.println(&quot;Service注解测试2:&quot;+this.hashCode());</span><br><span class="line">		ad.p();//加注解@Autowired就可以将dao注入到service中，同样在setter方法上，构造方法上，都可以注入成功，而不需要在xml中配置</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如上，加上注解，这样在xml中就不用配置<code>&lt;bean&gt;&lt;/bean&gt;</code>了，同样在类上加这个注解也可以。</p>
+<p><strong>假如：在xml中配置了bean而且有property（即没有注释的那种配置），但是，却没有setter方法，而给这个属性加了@Autowired，这样会成功吗？</strong><br>$\color{red}{答案是否定的，因为：Spring会按照xml优先的原则去相应的java文件中，}$<br>$\color{red}{寻找这两个属性的setter方法来配置}$</p>
+<h4 id="2、-Scope"><a href="#2、-Scope" class="headerlink" title="2、@Scope"></a><strong>2、@Scope</strong></h4><p>如上：scope可以指定模式，默认还是singleton，即单例模式。”prototype”表示原型即每次都会new一个新的出来。</p>
+<h4 id="3、-Service"><a href="#3、-Service" class="headerlink" title="3、@Service"></a><strong>3、@Service</strong></h4><p>@Service和@Controller、@Repository、@Component其实都是一样的，当你知道这个类具体是干什么的就用具体的注解，如果不知道就用@Component。（概述中已经叙述清楚）</p>
+<p>另外：<strong>这里的@Service，干了两件事，1：声明该类是一个bean，这样才可以使用@Autowired来自动注入。2：这个类的bean的id是类名，且首字母小写</strong>，你也可以这样做，<code>@Service(&quot;这里你是想要的id名&quot;)</code></p>
+<p>####<strong>4、@Autowired @Qualifier(“指定bean”)配套使用</strong><br>这种情况是：当出现一个接口有多个实现类时来区分使用，例如下面的<br>AnnotationService，这个接口就有两个实现类。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">package com.annotation;</span><br><span class="line"></span><br><span class="line">import java.util.List;</span><br><span class="line">import java.util.Map;</span><br><span class="line">import java.util.Map.Entry;</span><br><span class="line"></span><br><span class="line">import javax.annotation.Resource;</span><br><span class="line"></span><br><span class="line">import org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line">import org.springframework.beans.factory.annotation.Qualifier;</span><br><span class="line">import org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line">import com.annotation.service.AnnotationService;</span><br><span class="line"></span><br><span class="line">@Component</span><br><span class="line">public class QualifierResoutce &#123;</span><br><span class="line">	@Autowired</span><br><span class="line">	@Qualifier(&quot;annotationServiceImpl2&quot;)</span><br><span class="line">	//	@Resource(name=&quot;annotationServiceImpl2&quot;)</span><br><span class="line">	public AnnotationService as;</span><br><span class="line">	</span><br><span class="line">	@Resource</span><br><span class="line">	public List&lt;AnnotationService&gt; list;</span><br><span class="line">	</span><br><span class="line">	@Resource</span><br><span class="line">	public Map&lt;String,AnnotationService&gt; map;</span><br><span class="line">	</span><br><span class="line">	public void p()&#123;</span><br><span class="line">		System.out.println(&quot;QualifierResoutce&quot;);</span><br><span class="line">		as.p();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public void print()&#123;</span><br><span class="line">		System.out.println(&quot;-----list存放------&quot;);</span><br><span class="line">		for(AnnotationService a:list)&#123;</span><br><span class="line">			System.out.println(a.getClass().getName());</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(&quot;-----map存放------&quot;);</span><br><span class="line">		for(Entry&lt;String, AnnotationService&gt; e:map.entrySet())&#123;</span><br><span class="line">			System.out.println(e.getKey()+&quot;   &quot;+e.getValue());</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面的@Component，就是不知道这个类是干嘛的，所以就使用这个注解，</p>
+<p>而这两个注解的配套使用就是，自动注入这个属性，并且走的是这个属性（接口）的哪个实现类</p>
+<h4 id="5、-Resource"><a href="#5、-Resource" class="headerlink" title="5、@Resource"></a><strong>5、@Resource</strong></h4><p>上面也出现了这个注解，这个注解和@Autowired非常类似。</p>
+<p><strong>@Resource的装配顺序：</strong><br>(1)、@Resource后面没有任何内容，默认通过name属性去匹配bean，找不到再按type去匹配<br>(2)、指定了name或者type则根据指定的类型去匹配bean<br>(3)、指定了name和type则根据指定的name和type去匹配bean，任何一个不匹配都将报错</p>
+<p><strong>@Resource和@Autowired的区别：</strong><br>(1)、@Autowired默认按照byType方式进行bean匹配，@Resource默认按照byName方式进行bean匹配<br>(2)、@Autowired是Spring的注解，@Resource是J2EE的注解，这个看一下导入注解的时候这两个注解的包名就一清二楚了</p>
+<p><strong>Spring属于第三方的，J2EE是Java自己的东西，因此，建议使用@Resource注解，以减少代码和Spring之间的耦合。</strong></p>
+<h4 id="6、-Controller"><a href="#6、-Controller" class="headerlink" title="6、@Controller"></a>6、@Controller</h4><p>@Controller对应表现层的Bean，也就是Action，当使用这个注解以后，spring容器中就会有一个和这个注解的类名相同（首字母小写）的action，</p>
+<p>也可以这样@Controller(“ActionName”)来指定名字</p>
+<p>同样@Repository，也是这样的</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Spring/" rel="tag"># Spring</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/02/【Spring注入】属性，对象，集合，数组/" rel="next" title="Spring注入之属性、对象、集合、数组四种方式🍂">
+                <i class="fa fa-chevron-left"></i> Spring注入之属性、对象、集合、数组四种方式🍂
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/04/spring/" rel="prev" title="Spring学习笔记🍂">
+                Spring学习笔记🍂 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://www.qqzhi.com/uploadpic/2014-05-04/034226102.jpg"
+                alt="EasyChill" />
+            
+              <p class="site-author-name" itemprop="name">EasyChill</p>
+              <p class="site-description motion-element" itemprop="description">这里是我的博客以及生活总结</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/24bc1eb70081" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-book"></i>简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/mrsongjiangtao" target="_blank" title="Github">
+                      
+                        <i class="fa fa-fw fa-github"></i>Github</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://img-blog.csdn.net/20180922081342916?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NvbmdfSmlhbmdUYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" target="_blank" title="QQ">
+                      
+                        <i class="fa fa-fw fa-qq"></i>QQ</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://music.163.com/#/user/home?id=378985282" target="_blank" title="网易云">
+                      
+                        <i class="fa fa-fw fa-music"></i>网易云</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、引入注解的目的："><span class="nav-number">1.</span> <span class="nav-text">一、引入注解的目的：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、常用注解概述："><span class="nav-number">2.</span> <span class="nav-text">二、常用注解概述：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、详述"><span class="nav-number">3.</span> <span class="nav-text">三、详述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、-Autowired"><span class="nav-number">3.0.0.1.</span> <span class="nav-text">1、@Autowired</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、-Scope"><span class="nav-number">3.0.0.2.</span> <span class="nav-text">2、@Scope</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、-Service"><span class="nav-number">3.0.0.3.</span> <span class="nav-text">3、@Service</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5、-Resource"><span class="nav-number">3.0.0.4.</span> <span class="nav-text">5、@Resource</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6、-Controller"><span class="nav-number">3.0.0.5.</span> <span class="nav-text">6、@Controller</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+            <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=447076485&auto=1&height=66"></iframe>
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">EasyChill</span>
+
+  
+</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

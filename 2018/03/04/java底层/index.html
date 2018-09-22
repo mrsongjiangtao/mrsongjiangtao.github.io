@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="#$\color{blue}{一、究竟何为面向对象？}$  首先，面向对象是一种思想，它呢是基于面向过程而言的，$\color{red}{这种思想是对数据的一种优化}$   其次，理解对象概念，什么是对象？对象就是类的一个实例，什么是类？类就是对一类事物的抽象，这类事物的共同特性就是程序中的属性，共同的行为就是方法。   例如：动物这个类。有属性name，有方法eat()。动物类的对象：狗，狗呢就">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入Java底层细节🍵">
+<meta property="og:url" content="http://yoursite.com/2018/03/04/java底层/index.html">
+<meta property="og:site_name" content="EasyChill&#39;Blogs">
+<meta property="og:description" content="#$\color{blue}{一、究竟何为面向对象？}$  首先，面向对象是一种思想，它呢是基于面向过程而言的，$\color{red}{这种思想是对数据的一种优化}$   其次，理解对象概念，什么是对象？对象就是类的一个实例，什么是类？类就是对一类事物的抽象，这类事物的共同特性就是程序中的属性，共同的行为就是方法。   例如：动物这个类。有属性name，有方法eat()。动物类的对象：狗，狗呢就">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://img-blog.csdn.net/20180824185643558?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NvbmdfSmlhbmdUYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-blog.csdn.net/20180824190927775?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NvbmdfSmlhbmdUYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-blog.csdn.net/20180824191224959?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NvbmdfSmlhbmdUYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-blog.csdn.net/20180824201032316?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NvbmdfSmlhbmdUYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-blog.csdn.net/20180824202702186?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NvbmdfSmlhbmdUYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-blog.csdn.net/20180824211327170?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NvbmdfSmlhbmdUYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-blog.csdn.net/20180824211926708?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NvbmdfSmlhbmdUYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-blog.csdn.net/20180824213219881?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NvbmdfSmlhbmdUYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-blog.csdn.net/2018082710150514?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NvbmdfSmlhbmdUYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-blog.csdn.net/20180827104250657?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NvbmdfSmlhbmdUYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-blog.csdn.net/20180901104242274?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NvbmdfSmlhbmdUYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-blog.csdn.net/20180828111000168?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NvbmdfSmlhbmdUYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-blog.csdn.net/20180828112944148?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NvbmdfSmlhbmdUYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-blog.csdn.net/20180828111840202?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NvbmdfSmlhbmdUYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-blog.csdn.net/20180828112202392?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NvbmdfSmlhbmdUYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-blog.csdn.net/20180828113743486?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NvbmdfSmlhbmdUYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:updated_time" content="2018-09-21T15:08:27.442Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深入Java底层细节🍵">
+<meta name="twitter:description" content="#$\color{blue}{一、究竟何为面向对象？}$  首先，面向对象是一种思想，它呢是基于面向过程而言的，$\color{red}{这种思想是对数据的一种优化}$   其次，理解对象概念，什么是对象？对象就是类的一个实例，什么是类？类就是对一类事物的抽象，这类事物的共同特性就是程序中的属性，共同的行为就是方法。   例如：动物这个类。有属性name，有方法eat()。动物类的对象：狗，狗呢就">
+<meta name="twitter:image" content="https://img-blog.csdn.net/20180824185643558?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NvbmdfSmlhbmdUYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/04/java底层/"/>
+
+
+
+
+
+  <title>深入Java底层细节🍵 | EasyChill'Blogs</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">EasyChill'Blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">专注而非广博</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-联系我">
+          <a href="/message/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-envelope"></i> <br />
+            
+            联系我
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/04/java底层/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="EasyChill">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://www.qqzhi.com/uploadpic/2014-05-04/034226102.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="EasyChill'Blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">深入Java底层细节🍵</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-04T16:20:34+08:00">
+                2018-03-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>#$\color{blue}{一、究竟何为面向对象？}$</p>
+<ul>
+<li><p>首先，面向对象是一种<strong>思想</strong>，它呢是基于面向过程而言的，$\color{red}{这种思想是对数据的一种优化}$</p>
+<p>  其次，理解<strong>对象</strong>概念，什么是对象？<strong>对象就是类的一个实例</strong>，什么是类？<strong>类就是对一类事物的抽象</strong>，这类事物的共同特性就是程序中的<strong>属性</strong>，共同的行为就是<strong>方法</strong>。</p>
+<p>  例如：动物这个类。有属性name，有方法eat()。动物类的对象：狗，狗呢就具有name的属性和吃的行为。</p>
+<p>  $\color{red}{面向对象的三大特征：封装、继承、多态。}$</p>
+<ul>
+<li>封装：隐藏了对象的具体细节。提高了复用性和安全性</li>
+<li>继承：两个类之间有一些的属性和方法的重复。就使用继承，这样既简化了代码，也提高了代码的复用性</li>
+<li>多态：继承是多态的前提。体现在：<strong>父类对象的引用可以指向子类对象</strong>，这样提高了程序的扩展性</li>
+</ul>
+</li>
+</ul>
+<p>#$\color{blue}{二、jvm}$</p>
+<ul>
+<li><p>大多数 JVM 将内存区域划分为 Method Area（Non-Heap）（方法区），Heap（堆），Program Counter Register（程序计数器） ,   VM Stack（虚拟机栈，也有翻译成JAVA 方法栈的），Native Method Stack  （ 本地方法栈 ），其中Method Area 和  Heap 是线程共享的  ，VM Stack，Native Method Stack  和Program Counter Register  是非线程共享的。为什么分为 线程共享和非线程共享的呢?请继续往下看。 </p>
+<p>  首先我们熟悉一下一个一般性的 Java 程序的工作过程。一个 Java 源程序文件，会被编译为字节码文件（以 class 为扩展名），每个java程序都需要运行在自己的JVM上，然后告知 JVM 程序的运行入口，再被 JVM 通过字节码解释器加载运行。那么程序开始运行后，都是如何涉及到各内存区域的呢？ </p>
+<p>  概括地说来，JVM初始运行的时候都会分配好 Method Area（方法区） 和Heap（堆） ，而JVM 每遇到一个线程，就为其分配一个 Program Counter Register（程序计数器） ，  VM Stack（虚拟机栈）和Native Method Stack  （本地方法栈）， 当线程终止时，三者（虚拟机栈，本地方法栈和程序计数器）所占用的内存空间也会被释放掉。这也是为什么我把内存区域分为线程共享和非线程共享的原因，非线程共享的那三个区域的生命周期与所属线程相同，而线程共享的区域与JAVA程序运行的生命周期相同，所以这也是系统垃圾回收的场所只发生在线程共享的区域（实际上对大部分虚拟机来说知发生在Heap上）的原因。 </p>
+<p>  <strong>当我们创建一个对象（new Object）时，就会调用它的构造函数来开辟空间，将对象数据存储到堆内存中，与此同时在栈内存中生成对应的引用，当我们在后续代码中调用的时候用的都是栈内存中的引用，还需注意的一点，基本数据类型是存储在栈内存中。</strong></p>
+<p>  $\color{red}{heap和stack有什么区别?}$<br>java的内存分为两类，一类是栈内存，一类是堆内存。</p>
+</li>
+<li>栈内存是指程序进入一个方法时，会为这个方法单独分配一块私属存储空间，用于存储这个方法内部的局部变量，当这个方法结束时，分配给这个方法的栈会释放，这个栈中的变量也将随之释放。</li>
+<li><p>堆是与栈作用不同的内存，一般用于存放不放在当前方法栈中的那些数据，例如，使用new创建的对象都放在堆里，所以，它不会随方法的结束而消失。方法中的局部变量使用final修饰后，放在堆中，而不是栈中。</p>
+<p>  更多参考：<br>  <strong>转自：<a href="http://blog.csdn.net/ns_code/article/details/17565503" target="_blank" rel="noopener">http://blog.csdn.net/ns_code/article/details/17565503</a></strong><br>  <a href="https://blog.csdn.net/ns_code/article/details/17565503" target="_blank" rel="noopener">【深入Java虚拟机】之一：Java内存区域与内存溢出</a><br>  <a href="https://www.cnblogs.com/sunada2005/p/3577799.html" target="_blank" rel="noopener">【转】JVM介绍</a></p>
+</li>
+</ul>
+<p>#$\color{blue}{三、java泛型}$</p>
+<ul>
+<li><strong>加入泛型之前：</strong>如果我们有如下需求：一个StringArr，你只想放string，但你并<strong>不能阻止其他类型数据放入</strong>。为了通用性，这样的数组一般都是Object。当我们获取里面的值的时候，就得<strong>强制转换</strong>，这就是它的缺点。</li>
+<li><strong>加入泛型之后：</strong>例如：<code>ArrayList&lt;String&gt; stringValues=new ArrayList&lt;String&gt;();</code>这样，就指定了具体的类型，添加一些数据的时候，如果不符合初定的类型，就会报错，<strong>安全性提高！</strong>再有就是指定了具体的类型，<strong>提高了代码的质量，可读性提高！</strong></li>
+<li><p><strong>实现原理：</strong><br><img src="https://img-blog.csdn.net/20180824185643558?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NvbmdfSmlhbmdUYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>如上，两者的类型分明不同，输出的结果却是<strong>true</strong>，这是因为，<strong>泛型它不会影响java虚拟机生成的汇编代码，在编译阶段，虚拟机就会把泛型的类型擦除，还原成没有泛型的代码，顶多编译速度稍微慢一些，执行速度是完全没有什么区别的。</strong>这就是为什么，Java的泛型被称为“伪泛型”的原因</p>
+<p>  <strong>注意点：</strong></p>
+<ul>
+<li>泛型变量不允许是基本数据类型，只能是他们的包装类<br><img src="https://img-blog.csdn.net/20180824190927775?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NvbmdfSmlhbmdUYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></li>
+<li>静态方法和静态变量不可以使用泛型类所声明的泛型类型参数<br><img src="https://img-blog.csdn.net/20180824191224959?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NvbmdfSmlhbmdUYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></li>
+</ul>
+</li>
+</ul>
+<p>#$\color{blue}{四、String类的深入理解}$<br>了解一个类最好的方式就是<strong>看源码</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">public final class String</span><br><span class="line">    implements java.io.Serializable, Comparable&lt;String&gt;, CharSequence</span><br><span class="line">&#123;</span><br><span class="line">    /** The value is used for character storage. */</span><br><span class="line">    private final char value[];</span><br><span class="line"></span><br><span class="line">    /** The offset is the first index of the storage that is used. */</span><br><span class="line">    private final int offset;</span><br><span class="line"></span><br><span class="line">    /** The count is the number of characters in the String. */</span><br><span class="line">    private final int count;</span><br><span class="line"></span><br><span class="line">    /** Cache the hash code for the string */</span><br><span class="line">    private int hash; // Default to 0</span><br><span class="line"></span><br><span class="line">    /** use serialVersionUID from JDK 1.0.2 for interoperability */</span><br><span class="line">    private static final long serialVersionUID = -6849794470754667710L;</span><br><span class="line">	</span><br><span class="line">	public String substring(int beginIndex, int endIndex) &#123;</span><br><span class="line">    if (beginIndex &lt; 0) &#123;</span><br><span class="line">        throw new StringIndexOutOfBoundsException(beginIndex);</span><br><span class="line">    &#125;</span><br><span class="line">    if (endIndex &gt; count) &#123;</span><br><span class="line">        throw new StringIndexOutOfBoundsException(endIndex);</span><br><span class="line">    &#125;</span><br><span class="line">    if (beginIndex &gt; endIndex) &#123;</span><br><span class="line">        throw new StringIndexOutOfBoundsException(endIndex - beginIndex);</span><br><span class="line">    &#125;</span><br><span class="line">    return ((beginIndex == 0) &amp;&amp; (endIndex == count)) ? this :</span><br><span class="line">        new String(offset + beginIndex, endIndex - beginIndex, value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public String concat(String str) &#123;</span><br><span class="line">    int otherLen = str.length();</span><br><span class="line">    if (otherLen == 0) &#123;</span><br><span class="line">        return this;</span><br><span class="line">    &#125;</span><br><span class="line">    char buf[] = new char[count + otherLen];</span><br><span class="line">    getChars(0, count, buf, 0);</span><br><span class="line">    str.getChars(0, otherLen, buf, count);</span><br><span class="line">    return new String(0, count + otherLen, buf);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public String replace(char oldChar, char newChar) &#123;</span><br><span class="line">    if (oldChar != newChar) &#123;</span><br><span class="line">        int len = count;</span><br><span class="line">        int i = -1;</span><br><span class="line">        char[] val = value; /* avoid getfield opcode */</span><br><span class="line">        int off = offset;   /* avoid getfield opcode */</span><br><span class="line"></span><br><span class="line">        while (++i &lt; len) &#123;</span><br><span class="line">        if (val[off + i] == oldChar) &#123;</span><br><span class="line">            break;</span><br><span class="line">        &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if (i &lt; len) &#123;</span><br><span class="line">        char buf[] = new char[len];</span><br><span class="line">        for (int j = 0 ; j &lt; i ; j++) &#123;</span><br><span class="line">            buf[j] = val[off+j];</span><br><span class="line">        &#125;</span><br><span class="line">        while (i &lt; len) &#123;</span><br><span class="line">            char c = val[off + i];</span><br><span class="line">            buf[i] = (c == oldChar) ? newChar : c;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        return new String(0, len, buf);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return this;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>更多的不再展示。</p>
+<p><strong>从以上的源码中获得信息：</strong></p>
+<ul>
+<li>String是final类，这意味着，这个类不能被继承，也不可有子类，其中的方法默认都是final方法</li>
+<li>String类是通过char数组来保存字符串的</li>
+<li>String类对字符串的操作都是对新字符串操作。$\color{red}{也就是说，String对象一定被创建就不会改变，任何改变操作都不会改变原字符串，而是生成了新的对象}$</li>
+</ul>
+<p><strong>字符串常量池：</strong></p>
+<ul>
+<li>每当我们创建字符串常量时，JVM会首先检查字符串常量池，如果该字符串已经存在常量池中，那么就直接返回常量池中的实例引用。如果字符串不存在常量池中，就会实例化该字符串并且将其放到常量池中。<strong>由于String字符串不可变，所以常量池中一定不存在两个相同的字符串</strong></li>
+<li><p><strong>静态常量池和运行时常量池</strong>。</p>
+<ul>
+<li>静态常量池，即.class文件中的常量池，class文件中的常量池不仅仅包含字符串(数字)字面量，还包含类、方法的信息，占用class文件绝大部分空间。</li>
+<li><p>运行时常量池，则是jvm虚拟机在完成类装载操作后，将class文件中的常量池载入到内存中，并保存在方法区中，我们常说的常量池，就是指方法区中的运行时常量池。</p>
+<p><img src="https://img-blog.csdn.net/20180824201032316?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NvbmdfSmlhbmdUYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>虽说，字符串的比较，我们使用equals方法，但用==号就可以看出，a和b指向的同一个对象。而new以后就产生新的对象。</p>
+<p>如果使用equals比较三者，得出的结果，肯定都是true<br><img src="https://img-blog.csdn.net/20180824202702186?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NvbmdfSmlhbmdUYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>由于c是new出来的，所以产生了两个对象，一个是栈区中的c，另一个就是堆中的123，他们的引用关系是c-&gt;123-&gt;123(常量池中的)</p>
+<p>也就是说，尽管c是创建在堆中，但其value还是常量池中的123</p>
+<p>当我们对字符串，进行拼接，替换等操作时，会创建一个新的对象来操作，之后旧的对象，就会被当作垃圾回收。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>#$\color{blue}{五、equals()和==的区别}$<br>他们最大的区别就是一个是方法，一个是关系操作符。</p>
+<p>Object类中的equals方法源码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public boolean equals(Object obj)</span><br><span class="line">   &#123;</span><br><span class="line">       return this == obj;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>可见它直接比较的对象本身。</p>
+<p>String类中的equals方法源码（重写Object中的）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">public boolean equals(Object anObject) &#123;</span><br><span class="line">    if (this == anObject) &#123;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">    if (anObject instanceof String) &#123;</span><br><span class="line">        String anotherString = (String) anObject;</span><br><span class="line">        int n = value.length;</span><br><span class="line">        if (n == anotherString.value.length) &#123;</span><br><span class="line">            char v1[] = value;</span><br><span class="line">            char v2[] = anotherString.value;</span><br><span class="line">            int i = 0;</span><br><span class="line">            while (n-- != 0) &#123;</span><br><span class="line">                if (v1[i] != v2[i])</span><br><span class="line">                        return false;</span><br><span class="line">                i++;</span><br><span class="line">            &#125;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return false;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的equals比较当中，都运用到了“==”，这就说明，<strong>equals（不管哪个类中的）是==的扩展。</strong></p>
+<p>引用《java编程思想》中的原话：</p>
+<blockquote>
+<p>关系操作符生成的是一个boolean结果，它们计算的是操作数的值之间的关系</p>
+</blockquote>
+<p><strong>总结：</strong></p>
+<ul>
+<li>当==比较基本数据类型的时候，就是比较他们本身的值。</li>
+<li>而==比较引用数据类型的时候， 就是比较他们在内存的地址</li>
+<li>equals用来比较引用数据类型一般都要重写该方法。例如String类就重写了这个方法，</li>
+<li>如果没有重写equals就直接比较，就是比较他们的内存地址</li>
+<li><p>equals不能用于基本数据类型<br><img src="https://img-blog.csdn.net/20180824211327170?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NvbmdfSmlhbmdUYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>上面的str中存储的并不是“a”，而是它所指向的对象的地址。所以将他赋值给str2，比较他俩时返回的就是true<br><img src="https://img-blog.csdn.net/20180824211926708?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NvbmdfSmlhbmdUYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>上面的Student类并没有重写equals方法，结果位false</p>
+<p> <strong>还有hashCode()方法</strong><br> <img src="https://img-blog.csdn.net/20180824213219881?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NvbmdfSmlhbmdUYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+</li>
+</ul>
+<p>#$\color{blue}{六、int和Integer的区别}$<br> 基本区别：</p>
+<ul>
+<li>（1）Integer是int的包装类；int是基本数据类型； </li>
+<li>（2）Integer变量必须实例化后才能使用；int变量不需要； </li>
+<li>（3）Integer实际是对象的引用，指向此new的Integer对象；int是直接存储数据值 ； </li>
+<li>（4）Integer的默认值是null；int的默认值是0。</li>
+</ul>
+<p>深入比较：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">package com.nuc;</span><br><span class="line"></span><br><span class="line">public class Demo &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Integer i1 = new Integer(1);</span><br><span class="line">        Integer i2 = new Integer(1);</span><br><span class="line">        Integer i3 = 1;</span><br><span class="line">        Integer i4 = 127;</span><br><span class="line">        Integer i5 = 127;</span><br><span class="line">        Integer i6 = 128;</span><br><span class="line">        Integer i7 = 128;</span><br><span class="line">        int i8 = 1;</span><br><span class="line">        //1、直接比较时，比较两者的地址，每次new生成的都是新的对象</span><br><span class="line">        System.out.println(i1==i2);//false</span><br><span class="line">        //2、integer和int比较时会自动拆箱转换为int类型，然后比较两者的值</span><br><span class="line">        System.out.println(i1==i8);//ture</span><br><span class="line">        //3、非new生成i3指向的是java常量池的对象，new是新生成的</span><br><span class="line">        System.out.println(i1==i3);//false</span><br><span class="line">        //4、127和128问题，JavaAPI中对Integer定义：在-128到127(含)之间的数会缓存，只存在一个对象中，即在此创建只是从缓存中取</span><br><span class="line">            //超过这个每次创建就会new，即产生新的对象</span><br><span class="line">        System.out.println(i4==i5);//true</span><br><span class="line">        System.out.println(i6==i7);//false</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdn.net/2018082710150514?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NvbmdfSmlhbmdUYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>以上是测试结果</p>
+<p>#$\color{blue}{七、null和“”的区别}$<br><strong>本质区别：</strong></p>
+<ul>
+<li>null是没有地址的</li>
+<li>“”是有地址的，里边的内容是空的</li>
+</ul>
+<p>具体区别：</p>
+<ul>
+<li>1、做成员变量（字段/属性/类变量）时，如果只写String str；那么是默认赋值为null的。null的话，你屏幕输出（toString方法）的结果为字符串null，而且其它调用str的操作，编译可通过，运行时会空指针异常，此时是异常。</li>
+<li>2、做局部变量（方法里的变量）时，如果只写String str；是不会默认赋值null的，这里仅声明了一个str变量，在栈内存中有定义，但没有任何值，null其实也是一种值。此时任何调用str的操作，编译时就均会报错，是error，不是异常。</li>
+<li><p>3、“”是空字符串，但也是字符串，没有什么东西。 而null是空的意思，什么都没有，没有地址<br><img src="https://img-blog.csdn.net/20180827104250657?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NvbmdfSmlhbmdUYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>如果你直接输出str1，本质上其实是调用了toString方法。所以就会报错<br>$\color{red}{也就是说，你对没有地址的东西做做操作(除了=)，就会报错}$</p>
+<p>  <strong><code>String str = null;</code>和<code>String str1;</code> 这两者也是不同的，前者是分配了内存，也就是说，你对他可以进行相关操作，而不会报错，后者是不可以的。</strong></p>
+</li>
+</ul>
+<p>#$\color{blue}{八、final、finally和finalize的区别}$<br>$\color{red}{final：}$是<strong>关键字</strong>，是个修饰符。<strong>final不可以和abstract共存</strong></p>
+<ul>
+<li><strong>修饰类：</strong>这样意味着这个类不能有子类，也不能作为父类被继承</li>
+<li><strong>修饰方法：</strong>这样意味着这个方法只能使用，不可以被重写，可以被重载</li>
+<li><strong>修饰变量：</strong>这样意味着这个变量在使用过程中<strong>不可以被改变</strong>，声明时必须赋予初始值，后来用的时候只能读取</li>
+</ul>
+<p>$\color{red}{finally：}$是异常处理时提供finally块来执行一些操作，<strong>不管有没有异常被抛出、捕获，finally块都会被执行</strong></p>
+<ul>
+<li><p>try，catch，finally，<strong>try中的内容如果没有异常时会执行到底，然后去执行finally代码块（如果有的话）；catch代码块中的内容是：try中的内容遇到异常时来执行，try中遇到异常那一行代码之后的代码都不会执行，然后继续执行finally代码块（如果有的话）；finally中的代码是始终都会执行的</strong></p>
+</li>
+<li><p>$\color{red}{try和catch是否必须连用？不是。try能否可以独立存在？不能。}$</p>
+<p>  也就是说：try不可以单独存在，必须和catch和finally的其中一个连用</p>
+</li>
+</ul>
+<p>$\color{red}{finalize：}$是个方法名</p>
+<ul>
+<li><strong>java允许使用finalize()方法在垃圾收集器将对象从内存中清除出去之前做必要的清理工作。</strong>这个方法是由垃圾收集器在确定这个对象没有被引用时对这个对象调用的。它是在object类中定义的，<strong>因此所有的类都继承了它</strong>。子类覆盖finalize()方法以整理系统资源或者被执行其他清理工作。<strong>finalize()方法是在垃圾收集器删除对象之前，对这个对象调用的</strong></li>
+</ul>
+<p>#$\color{blue}{九、异常和错误}$</p>
+<ul>
+<li>异常 <ul>
+<li>异常即exception</li>
+<li>异常：可以预知、可以通过修改程序来弥补”错误”,可避免的</li>
+</ul>
+</li>
+<li>错误 <ul>
+<li>错误：error</li>
+<li>错误：无法预知的，系统级别的，程序员修改程序是无法修复的；例如：系统宕机，JVM挂掉了<br><img src="https://img-blog.csdn.net/20180901104242274?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NvbmdfSmlhbmdUYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>粉红色的是编译时异常(checked exceptions),其必须被 try{}catch语句块所捕获,或者在方法签名里通过throws子句声明.受检查的异常必须在编译时被捕捉处理,命名为 Checked Exception 是因为Java编译器要进行检查,Java虚拟机也要进行检查,以确保这个规则得到遵守.</li>
+<li>绿色的异常是运行时异常(runtime exceptions),需要程序员自己分析代码决定是否捕获和处理,比如 空指针,被0除…</li>
+<li><p>而声明为Error的，则属于严重错误，如系统崩溃、虚拟机错误、动态链接失败等，这些错误无法恢复或者不可能捕捉，将导致应用程序中断，Error不需要捕捉。</p>
+<p> 常见的异常总结：</p>
+<ul>
+<li>1、java.lang.NullPointerException(空指针异常)<br>　 调用了未经初始化的对象或者是不存在的对象</li>
+<li>2、java.lang.ClassNotFoundException<br>　 指定的类不存在</li>
+<li>3、java.lang.NumberFormatException<br>字符串转换为数字异常　　</li>
+<li>4、java.lang.IndexOutOfBoundsException<br>数组下标越界异常</li>
+<li>5、 java.lang.ArithmeticException<br>数学运算异常</li>
+<li>6、 java.lang.ClassCastException<br>数据类型转换异常</li>
+<li>7、java.lang.FileNotFoundException<br>文件未找到异常</li>
+<li>8、java.lang.IllegalArgumentException<br>方法的参数错误</li>
+<li>9、 java.lang.NoSuchMethodException<br>方法不存在异常</li>
+<li><p>10、java.lang.NoClassDefFoundException<br>未找到类定义错误</p>
+<p><strong>违背安全原则异常：SecturityException</strong></p>
+<p><strong>操作数据库异常：SQLException</strong></p>
+<p><strong>输入输出异常：IOException</strong></p>
+<p><strong>通信异常：SocketException</strong></p>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>异常的处理 <ul>
+<li>功能抛出几个异常，功能调用如果进行try处理，需要与之对应的catch处理代码块，这样的处理有针对性，抛几个就处理几个。<br>特殊情况：try对应多个catch时，如果有父类的catch语句块，一定要放在下面。</li>
+</ul>
+</li>
+<li><p>throws 和throw</p>
+<ul>
+<li><strong>throws 方法声明时使用</strong>，表示该方法可能产生的异常，抛出，谁调用谁捕获处理，throws用在函数上。</li>
+<li><strong>throw方法体中使用</strong>，表示抛出一个具体的异常对象，谁调用谁捕获处理，throw用在函数内。</li>
+<li>catch中存在return，此时finally中是否被执行?执行。但finally外边不执行。（其实就不能有语句）</li>
+</ul>
+</li>
+</ul>
+<p>#$\color{blue}{十、Java中23种设计模式}$<br><strong>篇幅过长，具体请看大神总结的：</strong><a href="https://blog.csdn.net/zhangerqing/article/details/8194653" target="_blank" rel="noopener"><br>Java之美[从菜鸟到高手演变]之设计模式</a><br><a href="https://blog.csdn.net/zhangerqing/article/details/8239539" target="_blank" rel="noopener">Java之美[从菜鸟到高手演变]之设计模式二</a><br><a href="https://blog.csdn.net/zhangerqing/article/details/8243942" target="_blank" rel="noopener">Java之美[从菜鸟到高手演变]之设计模式三</a><br><a href="https://blog.csdn.net/zhangerqing/article/details/8245537" target="_blank" rel="noopener">Java之美[从菜鸟到高手演变]之设计模式四
+</a><strong>转自：<a href="http://blog.csdn.net/zhangerqing" target="_blank" rel="noopener">http://blog.csdn.net/zhangerqing</a></strong></p>
+<p>#$\color{blue}{十一、java多线程}$</p>
+<ul>
+<li><strong>进程</strong>是具有一定独立功能的程序关于某个数据集合上的一次运行活动,进程是系统进行资源分配和调度的一个独立单位.</li>
+<li><strong>线程</strong>是进程的一个实体,是CPU调度和分派的基本单位,它是比进程更小的能独立运行的基本单位.线程自己基本上不拥有系统资源,只拥有一点在运行中必不可少的资源(如程序计数器,一组寄存器和栈),但是它可与同属一个进程的其他的线程共享进程所拥有的全部资源.</li>
+<li><strong>区别并发和并行：</strong>并发是指：多个事件在同一时间间隔内发生，并行是指：多个事件在同一时刻发生</li>
+</ul>
+<p> 更多概念参考<a href="https://blog.csdn.net/Song_JiangTao/article/details/79670805" target="_blank" rel="noopener">操作系统基础知识总结整理</a>的第四大点：处理机管理</p>
+<p> <strong>更多多线程的知识请参考<a href="https://www.cnblogs.com/wxd0108/p/5479442.html" target="_blank" rel="noopener">Java中的多线程你只要看这一篇就够了</a></strong></p>
+<p>#$\color{blue}{十二、GC}$</p>
+<ul>
+<li>什么是GC？<ul>
+<li>GC是垃圾收集的意思（Gabage Collection）</li>
+</ul>
+</li>
+<li>为什么要有GC?<ul>
+<li>内存处理是编程人员容易出现问题的地方，忘记或者错误的内存回收会导致程序或系统的不稳定甚至崩溃，Java提供的GC功能可以自动监测对象是否超过作用域从而达到自动回收内存的目的，Java语言没有提供释放已分配内存的显示操作方法</li>
+</ul>
+</li>
+<li>垃圾回收器的基本原理是什么?<ul>
+<li><strong>对于GC来说，当程序员创建对象时，GC就开始监控这个对象的地址、大小以及使用情况。通常，GC采用有向图的方式记录和管理堆(heap)中的所有对象。通过这种方式确定哪些对象是”可达的”，哪些对象是”不可达的”。当GC确定一些对象为”不可达”时，GC就有责任回收这些内存空间。</strong></li>
+</ul>
+</li>
+<li><p>有什么办法主动通知虚拟机进行垃圾回收？ </p>
+<ul>
+<li><p>程序员可以手动执行<code>System.gc()</code>或者<code>Runtime.getRuntime().gc()</code>，通知GC运行，但是Java语言规范并不保证GC一定会执行。 我们只是“提醒”一下</p>
+<p><strong>关于Java堆内存结构，分代回收算法，垃圾收集器，GC日志，JVM参数使用</strong>，请参考<a href="https://blog.csdn.net/d6619309/article/details/53358250" target="_blank" rel="noopener">JavaGC介绍</a></p>
+</li>
+</ul>
+</li>
+</ul>
+<p>#$\color{blue}{十三、Java编译一个.java文件生成的.class文件有多少？}$</p>
+<ul>
+<li>一个.java文件中定义多个类，注意一下几点： <ul>
+<li>(1) public权限类只能有一个（<strong>可以一个都没有，但最多只有一个</strong>）；</li>
+<li>(2)这个.java文件名只能是public 权限的类的类名； </li>
+<li>(3)倘若这个文件中没有public 类，则它的.java文件的名字是随便的一个类名； </li>
+<li>(4)当用javac命令生成编译这个.java 文件的时候，则会针对每一个类生成一个.class文件； </li>
+<li>(5)内部类也产生.class文件</li>
+<li>(6)接口也产生.class文件</li>
+</ul>
+</li>
+</ul>
+<p>测试类：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">package com.nuc;</span><br><span class="line"></span><br><span class="line">public class Demo &#123;</span><br><span class="line">    class a&#123; &#125;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        System.out.println(&quot;f&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class c&#123; &#125;</span><br><span class="line">interface a&#123; &#125;</span><br></pre></td></tr></table></figure></p>
+<p>测试结果<br><img src="https://img-blog.csdn.net/20180828111000168?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NvbmdfSmlhbmdUYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>可以看出，内部类的.class文件的命名格式为，<strong>外部类名<code>$</code>内部类名.class</strong>，外部类和内部类名使用符号<code>$</code>隔开</p>
+<p><strong>如果有两层内部类</strong>，如下图：<br><img src="https://img-blog.csdn.net/20180828112944148?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NvbmdfSmlhbmdUYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<p>#####<em>那么继承父类，实现接口的情况呢？</em></p>
+<p><strong>图一:</strong><br><img src="https://img-blog.csdn.net/20180828111840202?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NvbmdfSmlhbmdUYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br><strong>图二:</strong><br><img src="https://img-blog.csdn.net/20180828112202392?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NvbmdfSmlhbmdUYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<p><strong>图一是，接口和父类，Demo类在同一包下测试的结果，编译Demo产生的class文件</strong><br><strong>图二是，不在同一包下的测试结果，Demo类编译时的class文件</strong></p>
+<p>#####<em>那么匿名内部类的情况呢？</em><br>匿名内部类的创建格式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">new 父类构造器(参数列表)|实现接口()</span><br><span class="line">    &#123;  </span><br><span class="line">     //匿名内部类的类体部分  </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>结果：<br><img src="https://img-blog.csdn.net/20180828113743486?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NvbmdfSmlhbmdUYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>可见，匿名内部类，也生成class文件，由于匿名内部类没有名字，所以就按数字来命名，<strong>其规则是按照匿名内部类的顺序递增的。命名格式和内部类相似，名字换成数字即可</strong></p>
+<p>#$\color{blue}{持续更新。。。}$<br>$\color{red}{}$</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/02/testGit/" rel="next" title="TestGithub">
+                <i class="fa fa-chevron-left"></i> TestGithub
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/14/java基础知识总结/" rel="prev" title="Java基础知识总结🍵">
+                Java基础知识总结🍵 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://www.qqzhi.com/uploadpic/2014-05-04/034226102.jpg"
+                alt="EasyChill" />
+            
+              <p class="site-author-name" itemprop="name">EasyChill</p>
+              <p class="site-description motion-element" itemprop="description">这里是我的博客以及生活总结</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/24bc1eb70081" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-book"></i>简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/mrsongjiangtao" target="_blank" title="Github">
+                      
+                        <i class="fa fa-fw fa-github"></i>Github</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://img-blog.csdn.net/20180922081342916?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NvbmdfSmlhbmdUYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" target="_blank" title="QQ">
+                      
+                        <i class="fa fa-fw fa-qq"></i>QQ</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://music.163.com/#/user/home?id=378985282" target="_blank" title="网易云">
+                      
+                        <i class="fa fa-fw fa-music"></i>网易云</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">EasyChill</span>
+
+  
+</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

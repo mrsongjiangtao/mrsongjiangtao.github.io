@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Spring," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一、建一个spring空项目二、新建student.java类1234567891011121314151617181920212223package com.printValue;public class Student &amp;#123;	private String age;	public String getAge() &amp;#123;		return age;	&amp;#125;	public void">
+<meta name="keywords" content="Spring">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring注入之属性、对象、集合、数组四种方式🍂">
+<meta property="og:url" content="http://yoursite.com/2018/04/02/【Spring注入】属性，对象，集合，数组/index.html">
+<meta property="og:site_name" content="EasyChill&#39;Blogs">
+<meta property="og:description" content="一、建一个spring空项目二、新建student.java类1234567891011121314151617181920212223package com.printValue;public class Student &amp;#123;	private String age;	public String getAge() &amp;#123;		return age;	&amp;#125;	public void">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://img-blog.csdn.net/20180821155213951?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NvbmdfSmlhbmdUYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:updated_time" content="2018-09-21T15:03:51.746Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring注入之属性、对象、集合、数组四种方式🍂">
+<meta name="twitter:description" content="一、建一个spring空项目二、新建student.java类1234567891011121314151617181920212223package com.printValue;public class Student &amp;#123;	private String age;	public String getAge() &amp;#123;		return age;	&amp;#125;	public void">
+<meta name="twitter:image" content="https://img-blog.csdn.net/20180821155213951?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NvbmdfSmlhbmdUYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/02/【Spring注入】属性，对象，集合，数组/"/>
+
+
+
+
+
+  <title>Spring注入之属性、对象、集合、数组四种方式🍂 | EasyChill'Blogs</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">EasyChill'Blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">专注而非广博</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-联系我">
+          <a href="/message/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-envelope"></i> <br />
+            
+            联系我
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/02/【Spring注入】属性，对象，集合，数组/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="EasyChill">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://www.qqzhi.com/uploadpic/2014-05-04/034226102.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="EasyChill'Blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spring注入之属性、对象、集合、数组四种方式🍂</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-02T19:22:33+08:00">
+                2018-04-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="一、建一个spring空项目"><a href="#一、建一个spring空项目" class="headerlink" title="一、建一个spring空项目"></a>一、建一个spring空项目</h1><h1 id="二、新建student-java类"><a href="#二、新建student-java类" class="headerlink" title="二、新建student.java类"></a>二、新建student.java类</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">package com.printValue;</span><br><span class="line"></span><br><span class="line">public class Student &#123;</span><br><span class="line">	private String age;</span><br><span class="line"></span><br><span class="line">	public String getAge() &#123;</span><br><span class="line">		return age;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void setAge(String age) &#123;</span><br><span class="line">		this.age = age;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void p()&#123;</span><br><span class="line">		System.out.println(&quot;注入类&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@Override</span><br><span class="line">	public String toString() &#123;</span><br><span class="line">		return &quot;age:&quot;+age;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="三、新建SpringCollection-java类"><a href="#三、新建SpringCollection-java类" class="headerlink" title="三、新建SpringCollection.java类"></a>三、新建SpringCollection.java类</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">package com.printValue;</span><br><span class="line"></span><br><span class="line">import java.util.List;</span><br><span class="line">import java.util.Map;</span><br><span class="line">import java.util.Map.Entry;</span><br><span class="line">import java.util.Set;</span><br><span class="line"></span><br><span class="line">public class SpringCollection &#123;//集合型的注入,对象的注入，数组的注入</span><br><span class="line">	private String name;</span><br><span class="line">	private List&lt;Object&gt; list;</span><br><span class="line">	private Map&lt;String,String&gt; map;</span><br><span class="line">	private Set&lt;String&gt; set;</span><br><span class="line">	private Student student;</span><br><span class="line">	private String[] strArr;//数组</span><br><span class="line">	</span><br><span class="line">	public SpringCollection(String name)&#123;</span><br><span class="line">		this.name = name;</span><br><span class="line">		System.out.println(&quot;constructor注入：&quot;+name);//构造器注入的值</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public void setName(String name) &#123;</span><br><span class="line">		this.name = name;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public void setList(List&lt;Object&gt; list) &#123;</span><br><span class="line">		this.list = list;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void setMap(Map&lt;String, String&gt; map) &#123;</span><br><span class="line">		this.map = map;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void setSet(Set&lt;String&gt; set) &#123;</span><br><span class="line">		this.set = set;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void setStudent(Student student) &#123;</span><br><span class="line">		this.student = student;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public void setStrArr(String[] strArr) &#123;</span><br><span class="line">		this.strArr = strArr;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void print()&#123;</span><br><span class="line">		System.out.println(&quot;property注入：&quot;+name);</span><br><span class="line">		System.out.println(&quot;----list----&quot;);</span><br><span class="line">		for(Object l:list)&#123;</span><br><span class="line">			System.out.print(l+&quot; &quot;);</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println();</span><br><span class="line">		System.out.println(&quot;---set---&quot;);</span><br><span class="line">		for(String s:set)&#123;</span><br><span class="line">			System.out.print(s+&quot; &quot;);</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println();</span><br><span class="line">		System.out.println(&quot;---map---&quot;);</span><br><span class="line">		for(Entry&lt;String, String&gt; entity:map.entrySet())&#123;</span><br><span class="line">			System.out.print(entity.getKey()+&quot;:&quot;+entity.getValue()+&quot; &quot;);</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println();</span><br><span class="line">		System.out.println(&quot;----注入类----&quot;);</span><br><span class="line">		student.p();</span><br><span class="line">		</span><br><span class="line">		System.out.println();</span><br><span class="line">		System.out.println(&quot;----注入数组----&quot;);</span><br><span class="line">		for(String s1:strArr)&#123;</span><br><span class="line">			System.out.print(s1+&quot; &quot;);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="四、新建beans-xml文件。"><a href="#四、新建beans-xml文件。" class="headerlink" title="四、新建beans.xml文件。"></a>四、新建beans.xml文件。</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">    xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans</span><br><span class="line">        http://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt; 	</span><br><span class="line">	&lt;bean name=&quot;collection&quot; class=&quot;com.printValue.SpringCollection&quot;&gt;</span><br><span class="line">		&lt;constructor-arg index=&quot;0&quot; type=&quot;java.lang.String&quot; value=&quot;constructor&quot;&gt;&lt;/constructor-arg&gt;</span><br><span class="line">		&lt;property name=&quot;name&quot; value=&quot;sjt&quot;&gt;&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;list&quot;&gt;</span><br><span class="line">			&lt;list&gt;</span><br><span class="line">				&lt;value&gt;1&lt;/value&gt;</span><br><span class="line">				&lt;value&gt;2&lt;/value&gt;</span><br><span class="line">				&lt;value&gt;1&lt;/value&gt;</span><br><span class="line">				&lt;value&gt;2&lt;/value&gt;</span><br><span class="line">				&lt;ref bean=&quot;stu&quot;/&gt;&lt;!--对象放到list中 --&gt;</span><br><span class="line">			&lt;/list&gt;</span><br><span class="line">		&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;set&quot;&gt;</span><br><span class="line">			&lt;set&gt;</span><br><span class="line">				&lt;value&gt;1&lt;/value&gt;</span><br><span class="line">				&lt;value&gt;2&lt;/value&gt;</span><br><span class="line">				&lt;value&gt;1&lt;/value&gt;</span><br><span class="line">				&lt;value&gt;2&lt;/value&gt;</span><br><span class="line">			&lt;/set&gt;</span><br><span class="line">		&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;map&quot;&gt;</span><br><span class="line">			&lt;map&gt;</span><br><span class="line">				&lt;entry key=&quot;1&quot; value=&quot;sjt1&quot;&gt;&lt;/entry&gt;</span><br><span class="line">				&lt;entry key=&quot;2&quot; value=&quot;sjt2&quot;&gt;&lt;/entry&gt;</span><br><span class="line">				&lt;entry key=&quot;1&quot; value=&quot;sjt11&quot;&gt;&lt;/entry&gt;</span><br><span class="line">				&lt;entry key=&quot;2&quot; value=&quot;sjt22&quot;&gt;&lt;/entry&gt;</span><br><span class="line">			&lt;/map&gt;</span><br><span class="line">		&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;student&quot; ref=&quot;stu&quot; &gt;&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;strArr&quot;&gt;</span><br><span class="line">			&lt;list&gt;</span><br><span class="line">				&lt;value&gt;1&lt;/value&gt;</span><br><span class="line">				&lt;value&gt;2&lt;/value&gt;</span><br><span class="line">				&lt;value&gt;3&lt;/value&gt;</span><br><span class="line">				&lt;value&gt;4&lt;/value&gt;</span><br><span class="line">			&lt;/list&gt;</span><br><span class="line">		&lt;/property&gt;</span><br><span class="line">	&lt;/bean&gt;</span><br><span class="line">	&lt;bean name=&quot;stu&quot; class=&quot;com.printValue.Student&quot;&gt;</span><br><span class="line">		&lt;property name=&quot;age&quot; value=&quot;12&quot;&gt;&lt;/property&gt;</span><br><span class="line">	&lt;/bean&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="五、新建测试类SpringCollectionTest-java"><a href="#五、新建测试类SpringCollectionTest-java" class="headerlink" title="五、新建测试类SpringCollectionTest.java"></a>五、新建测试类SpringCollectionTest.java</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">package com.nuc.test;</span><br><span class="line"></span><br><span class="line">import org.junit.Test;</span><br><span class="line">import org.springframework.context.ApplicationContext;</span><br><span class="line">import org.springframework.context.support.ClassPathXmlApplicationContext;</span><br><span class="line"></span><br><span class="line">import com.printValue.SpringCollection;</span><br><span class="line"></span><br><span class="line">public class SpringCollectionTest &#123;</span><br><span class="line">	ApplicationContext ac = new ClassPathXmlApplicationContext(&quot;beans_collection.xml&quot;);</span><br><span class="line">	@Test</span><br><span class="line">	public void test()&#123;</span><br><span class="line">		SpringCollection sc = (SpringCollection) ac.getBean(&quot;collection&quot;);</span><br><span class="line">		sc.print();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="六、测试结果"><a href="#六、测试结果" class="headerlink" title="六、测试结果"></a>六、测试结果</h1><p><img src="https://img-blog.csdn.net/20180821155213951?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NvbmdfSmlhbmdUYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<h1 id="七、注意事项："><a href="#七、注意事项：" class="headerlink" title="七、注意事项："></a>七、注意事项：</h1><ul>
+<li><p>数组注入的时候，使用的也是list+value</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;property name=&quot;strArr&quot;&gt;</span><br><span class="line">	&lt;list&gt;</span><br><span class="line">		&lt;value&gt;1&lt;/value&gt;</span><br><span class="line">		&lt;value&gt;2&lt;/value&gt;</span><br><span class="line">		&lt;value&gt;3&lt;/value&gt;</span><br><span class="line">		&lt;value&gt;4&lt;/value&gt;</span><br><span class="line">	&lt;/list&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对象注入的时候，是另外写一个bean，然后用引入到你想引入的bean</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean name=&quot;stu&quot; class=&quot;com.printValue.Student&quot;&gt;</span><br><span class="line">		&lt;property name=&quot;age&quot; value=&quot;12&quot;&gt;&lt;/property&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>map输出的时候，是要用entry，并且map得调用entrySet方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for(Entry&lt;String, String&gt; entity:map.entrySet())&#123;	</span><br><span class="line">	System.out.print(entity.getKey()+&quot;:&quot;+entity.getValue()+&quot; &quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>直接输出对象时，需要重写toString方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">public String toString() &#123;</span><br><span class="line">	return &quot;age:&quot;+age;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Spring/" rel="tag"># Spring</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/14/java基础知识总结/" rel="next" title="Java基础知识总结🍵">
+                <i class="fa fa-chevron-left"></i> Java基础知识总结🍵
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/04/spring常用注解/" rel="prev" title="Spring常用注解🍂">
+                Spring常用注解🍂 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://www.qqzhi.com/uploadpic/2014-05-04/034226102.jpg"
+                alt="EasyChill" />
+            
+              <p class="site-author-name" itemprop="name">EasyChill</p>
+              <p class="site-description motion-element" itemprop="description">这里是我的博客以及生活总结</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/24bc1eb70081" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-book"></i>简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/mrsongjiangtao" target="_blank" title="Github">
+                      
+                        <i class="fa fa-fw fa-github"></i>Github</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://img-blog.csdn.net/20180922081342916?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NvbmdfSmlhbmdUYW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" target="_blank" title="QQ">
+                      
+                        <i class="fa fa-fw fa-qq"></i>QQ</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://music.163.com/#/user/home?id=378985282" target="_blank" title="网易云">
+                      
+                        <i class="fa fa-fw fa-music"></i>网易云</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、建一个spring空项目"><span class="nav-number">1.</span> <span class="nav-text">一、建一个spring空项目</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、新建student-java类"><span class="nav-number">2.</span> <span class="nav-text">二、新建student.java类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、新建SpringCollection-java类"><span class="nav-number">3.</span> <span class="nav-text">三、新建SpringCollection.java类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、新建beans-xml文件。"><span class="nav-number">4.</span> <span class="nav-text">四、新建beans.xml文件。</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五、新建测试类SpringCollectionTest-java"><span class="nav-number">5.</span> <span class="nav-text">五、新建测试类SpringCollectionTest.java</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#六、测试结果"><span class="nav-number">6.</span> <span class="nav-text">六、测试结果</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#七、注意事项："><span class="nav-number">7.</span> <span class="nav-text">七、注意事项：</span></a></li></ol></div>
+            
+            <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=447076485&auto=1&height=66"></iframe>
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">EasyChill</span>
+
+  
+</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
